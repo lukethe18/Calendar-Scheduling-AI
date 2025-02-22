@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<Title>AI Scheduling Assistant</Title>
+{% endblock %}
+
+{%block body %}
+<h1> Welcome to Your Personal AI Assistant!</h1>
+<p>Jemma can help you automatically schedule events into your google calendar. Simply provide the nessicary information and the event will automatically 
+    populate in in your Google Calendar!
+</p>
+
+<h2> To start, allow access to your google calender.</h2>
+<div style="text-align: center;">
+    <button class="btn" onclick="window.location.href='/authorize'">Authorize Google Calendar</button>
+  </div>
+
+
+
+{% endblock %}  

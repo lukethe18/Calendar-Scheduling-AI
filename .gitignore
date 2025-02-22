@@ -1,0 +1,19 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+
+# Sensitive credentials
+credentials.json
+
+# Flask instance folder
+instance/
+
+# Logs
+*.log
