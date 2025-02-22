@@ -1,19 +1,10 @@
-# Python cache files
-__pycache__/
-*.pyc
-
-# Virtual environment
+*
+venv/             # Virtual environment
+__pycache__/      # Python cache files
+*.pyc             # Compiled Python files
+.env              # Environment variables file (for local development ONLY)
 venv/
-env/
-
-# Environment variables
-.env
-
-# Sensitive credentials
-credentials.json
-
-# Flask instance folder
-instance/
-
-# Logs
-*.log
+token.json        # Google Calendar token file (DO NOT COMMIT!)
+credentials.json  # Google Calendar credentials (Do NOT commit!)
+config.py         # Any configuration files that contain secrets
+*.log             # Log files
