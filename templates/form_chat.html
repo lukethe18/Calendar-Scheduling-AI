@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<Title>AI Scheduling Assistant</Title>
+{% endblock %}
+
+{%block body %}
+
+  <h1>Hello, I'm Jemma!</h1>
+  <h2>Describe your event and I'll schedule it in your Google Calendar.</h2>
+  <p>For example, you can say "Meeting from 8 to 6" or paste a longer email, and I'll extract the relevant details.</p>
+
+  <br><br>
+
+<form id = "eventForm" method="POST"> 
+  {{ form.csrf_token }} 
+  <input type="hidden" id="timezone" name="timezone" value="{{ form.timezone.data or '' }}">
+
+  <div class="form-group">
+
+  <label for="description">Description:</label><br>
+  {{ form.description(class="form-control", placeholder="Enter event details here...") }}
+  </div>
+
+  <div class="form-group" style="text-align: center;">
+    {{ form.submit(class="btn") }}
+  </div>
+</form>
+
+<p>Note: I'm still in development and my reasoning skills are limited.</p>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<div id="message"></div>
+<hr>
+<h2>View Your Schedule for the Next 7 Days</h2>
+<div style="text-align: center;">
+  <button class="btn" onclick="window.location.href='/events'">View Schedule</button>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const form = document.getElementById("eventForm");
+  const messageDiv = document.getElementById("message");
+  const timezoneInput = document.getElementById("timezone");
+
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  document.getElementById("timezone").value = timezone;
+
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch("/create_event", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json(). then(err => {throw new Error(err.error)});
+      }
+      return response.json();
+
+      })
+    .then(data => {
+
+      messageDiv.innerHTML = data.message || data.error;
+      if (data.error){
+      messageDiv.innerHTML = `<span style="color: red;">${data.error}</span>`;
+      } else {
+        messageDiv.innerHTML = data.message;
+
+      if (data.event_id) {
+        console.log("Event ID", data.event_id)
+        }
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      messageDiv.textContent = error.message;
+  });
+});
+</script>
+{% endblock %}
+

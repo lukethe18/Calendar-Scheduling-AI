@@ -1,0 +1,9 @@
+venv/             # Virtual environment
+__pycache__/      # Python cache files
+*.pyc             # Compiled Python files
+.env              # Environment variables file
+token.json        # Google Calendar token file 
+events.json       # JSON file created by the program itself, contains personal information
+credentials.json  # Google Calendar credentials
+test.py           # Used for testing and removing bugs
+*.log             # Log files
