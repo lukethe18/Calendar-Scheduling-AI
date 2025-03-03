@@ -95,4 +95,4 @@ This is the first phase of a larger project. Future iterations will focus on:
 
 ## License
 
-[Apache 2.0)]
+[Apache 2.0]
